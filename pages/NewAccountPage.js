@@ -2,8 +2,27 @@ import React from 'react'
 import Layout from '../components/Layout'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import { useMutation, gql } from '@apollo/client'
+
+// traemos el mutation schema de gql  al frontend 
+const NEW_USER = gql`
+  mutation createUser($input:UserInput){
+   createUser(input:$input){
+  name
+  surnames
+  email
+   }
+ }
+    `
 
 const NewAcount = () => {
+
+
+
+    // MUTATION PARA CREAR NUEVOS USUARIOS para mutation usamos [ ] y querys { }
+    //usamos el hook useMutation y le pasamos el mutation de gql que viene del backend y lo pasamos arriba
+    //retornando la funcion de arriba es decir tenemos que colocar en el array lafuncion de createuser dentro
+    const [createUser] = useMutation(NEW_USER) //y esta funcion es l que vamos a usar en el submit para realizar la peticion
 
 
     // validacion del formulario
@@ -27,8 +46,22 @@ const NewAcount = () => {
             // password usamos min que observa si tiene minimo 6 caracteres si tiene 5 da error
             password: Yup.string().required('password is required').min(6, 'min 6 character '),
         }),
-        onSubmit: value => {
-            console.log('eeeeeeeeso', value)
+        onSubmit: async value => {
+            console.log('------', value.email)
+            try {
+                await createUser({
+                    user: {
+                        input: {
+                            name: value.name,
+                            surnames: value.surnames,
+                            email: value.email,
+                            password: value.password,
+                        }
+                    }
+                })
+            } catch (error) {
+                console.log(error)
+            }
         }
     })
 
@@ -45,7 +78,7 @@ const NewAcount = () => {
                                 className=' shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                             focus:outline-none focus:shadow-outline '
                                 id='email'
-                                type='email'
+                                type='text'
                                 placeholder='email user'
                                 // manda el valor del formulario es decir lo conecta con formkit
                                 value={formik.values.email}
@@ -129,4 +162,4 @@ const NewAcount = () => {
         </Layout>
     )
 }
-export default NewAcount
+export default NewAcount;
