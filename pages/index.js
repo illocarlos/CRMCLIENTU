@@ -1,6 +1,5 @@
 import Layout from '../components/Layout'
 import { useQuery, gql } from '@apollo/client'
-import { useRouter } from 'next/router';
 
 // traemos el mutation schema de gql  al frontend 
 const GET_CLIENTS = gql`
@@ -17,7 +16,7 @@ phone
     `;
 const Index = () => {
 
-  const router = useRouter()
+  // const router = useRouter()
   // consulta apollo
   //loading el tiempo de carga
   //error es el error que se pasa del backend

@@ -17,22 +17,20 @@ const Header = () => {
     const router = useRouter();
 
     // query de apollo
-    const { data, loading, error } = useQuery(GET_USER);
+    const { data, loading } = useQuery(GET_USER);
 
-    // console.log(data)
-    // console.log(loading)
-    // console.log(error)
+    const routerPush = data
+
 
     // Proteger que no accedamos a data antes de tener resultados
-    if (loading) return null;
-
-    // Si no hay informacion
-    // if (!data) {
-    //     return router.push('/LogInPage');
-    // }
-    console.log('----->', data.getUser)
-    const { name, surnames } = data.getUser;
-
+    //nos echa si no tenemos data o el token protegemos asi la ruta
+    if (!routerPush || !localStorage.token) {
+        router.push('/LogInPage')
+    }
+    // si tenemos data hacemos otro filtro con el loading para pasarle la data
+    if (loading) return null
+    const { name, surnames } = data.getUser
+    // cerramos sesion y borramos token
     const logOut = () => {
         localStorage.removeItem('token');
         router.push('/LogInPage');
