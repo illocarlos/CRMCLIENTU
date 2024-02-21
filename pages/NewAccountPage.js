@@ -1,5 +1,6 @@
-import React from 'react'
+import React, { useState } from 'react'
 import Layout from '../components/Layout'
+import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useMutation, gql } from '@apollo/client'
@@ -7,23 +8,33 @@ import { useMutation, gql } from '@apollo/client'
 // traemos el mutation schema de gql  al frontend 
 const NEW_USER = gql`
   mutation createUser($input:UserInput){
-   createUser(input:$input){
+   createUser(input: $input){
+    id
   name
   surnames
   email
    }
  }
-    `
+    `;
+
+
 
 const NewAcount = () => {
 
+    //state para el mensaje 
+    const [message, saveMessage] = useState(null)
+    const [isExist, isNotExist] = useState(false)
 
+    const router = useRouter()
 
     // MUTATION PARA CREAR NUEVOS USUARIOS para mutation usamos [ ] y querys { }
     //usamos el hook useMutation y le pasamos el mutation de gql que viene del backend y lo pasamos arriba
     //retornando la funcion de arriba es decir tenemos que colocar en el array lafuncion de createuser dentro
     const [createUser] = useMutation(NEW_USER) //y esta funcion es l que vamos a usar en el submit para realizar la peticion
 
+
+    // const { data } = useQuery(QUERY)
+    // console.log('---', data)
 
     // validacion del formulario
     //initialValues es como el state no tienes que definir un state por cada input
@@ -47,10 +58,13 @@ const NewAcount = () => {
             password: Yup.string().required('password is required').min(6, 'min 6 character '),
         }),
         onSubmit: async value => {
-            console.log('------', value.email)
+
             try {
-                await createUser({
-                    user: {
+                const { data } = await createUser({
+                    //error el input solo no lo introduce bien y te genera undefined 
+                    //en el programa de grapql el input es abrazado por otras llaves que no le di importancia 
+                    //pero hay que declararla igualmente
+                    variables: {
                         input: {
                             name: value.name,
                             surnames: value.surnames,
@@ -58,15 +72,38 @@ const NewAcount = () => {
                             password: value.password,
                         }
                     }
+
                 })
+                // mandar mensaje
+                isNotExist(false)
+                saveMessage(` ${data.createUser.name} is register`)
+
+                //redirigir al usuario
+                setTimeout(() => {
+                    saveMessage(null)
+                    router.push('/LogInPage')
+                }, 2000)
             } catch (error) {
-                console.log(error)
+                isNotExist(true)
+                saveMessage(error.message.replace("ApolloError: ", " "))
+                setTimeout(() => {
+                    saveMessage(null)
+                }, 3000)
             }
+
         }
+
     })
 
     return (
         <Layout>
+            {message ? (
+                <div className={isExist ? 'bg-red-400 text-white py-2 px-2 w-full my-3 text-center max-w-sm mx-auto '
+                    : 'bg-green-400 text-white py-2 px-2 w-full my-3 text-center max-w-sm mx-auto '}
+                >
+                    <p>{message}</p>
+                </div>
+            ) : null}
             <h2 className='text-center text-white text-2xl' >Create Account</h2>
             <div className='flex justify-center mt-5 '>
                 <div className='w-full max-w-sm'>

@@ -2,6 +2,7 @@ import React from 'react'
 import Head from 'next/head';
 import Sidebar from '../components/Sidebar';
 import { useRouter } from 'next/router'
+import Header from './Header';
 // usando children donde llamemos Layout vamos a recoger lo que este dentro de Layout
 // y le pasamos la infromacion si en una page dentro de la llamada del componente de
 //  layout metemos infromacion esta se reflejara en este componente y todo lo que este fuera de ese children se compartira en todas las pag
@@ -35,8 +36,8 @@ const Layout = ({ children }) => {
                     <div className='flex min-h-screen'>
                         <Sidebar />
                         <main className=' sm:w-2/3 lg:w-9/12 sm:min-h-screen p-5 '>
+                            <Header />
                             {children}
-
                         </main>
                     </div >
                 </div >

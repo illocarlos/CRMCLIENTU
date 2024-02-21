@@ -1,6 +1,7 @@
 import React from 'react'
 import Link from 'next/link'
 import { useRouter } from 'next/router'
+import Logo from './Logo'
 
 const Sidebar = () => {
     // lo usamos para hacer clases dinamicas ya que router.pathname te da el lugar en el que estas 
@@ -9,7 +10,8 @@ const Sidebar = () => {
     return (
         <aside className='bg-gray-800 sm:w-1/3 lg:w-3/12 sm:min-h-screen p-5 '>
             <div>
-                <p className='text-white font-extrabold text-xl'>
+                <Logo />
+                <p className='text-white text-center font-extrabold text-xl my-6'>
                     CRM SANSON
                 </p>
             </div>
