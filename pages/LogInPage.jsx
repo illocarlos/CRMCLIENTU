@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useMutation, gql } from '@apollo/client'
 import Logo from '../components/Logo'
+import Link from 'next/link'
 
 const ATENTICATE_USER = gql`
  mutation autenticateUser($input:AutenticateInput){
@@ -133,9 +134,12 @@ const LogIn = () => {
                         </div>
                         <input
                             type='submit'
-                            className='bg-gray-800 w-full mt-5 p-2 text-white  uppercase
+                            className='bg-gray-800 w-full mt-5 p-2 text-white  uppercase mb-3
                             hover:bg-gray-500 hover:text-black transition-all duration-300 cursor-pointer'
                             value="Log in" />
+                        <Link href={'/NewAccountPage'}>
+                            <p className='text-center cursor-pointer font-bold hover:text-blue-700'>Are not you  register?</p>
+                        </Link>
                     </form>
                 </div>
             </div>

@@ -3,6 +3,8 @@ import Layout from '../components/Layout'
 import { useRouter } from 'next/router'
 import { useFormik } from 'formik'
 import * as Yup from 'yup'
+import Logo from '../components/Logo'
+
 import { useMutation, gql } from '@apollo/client'
 
 // traemos el mutation schema de gql  al frontend 
@@ -104,7 +106,10 @@ const NewAcount = () => {
                     <p>{message}</p>
                 </div>
             ) : null}
-            <h2 className='text-center text-white text-2xl' >Create Account</h2>
+            <div className='flex flex-col justify-center'>
+                <Logo />
+                <h2 className='text-center text-white text-2xl my-4' >Create Account</h2>
+            </div>
             <div className='flex justify-center mt-5 '>
                 <div className='w-full max-w-sm'>
                     <form className='bg-white rounded px-8 pt-6 pb-8 mb-4'
