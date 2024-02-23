@@ -87,13 +87,12 @@ const client = ({ client }) => {
 
             }
         });
-        console.log(`deletedClient`, id)
     }
 
     const editClient = () => {
         // con este ROUTER podemos mandar a donde queramos pasandole informacion 
         Router.push({
-            pathname: "/EditClientPage/[id]",
+            pathname: "/ClientWeb/EditClientPage/[id]",
             query: { id }
         })
     }

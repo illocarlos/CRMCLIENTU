@@ -1,37 +1,34 @@
 import React from 'react'
 import { useRouter } from 'next/router'
-import Layout from '../../components/Layout';
+import Layout from '../../../components/Layout';
 import { useQuery, gql, useMutation } from '@apollo/client';
 import Swal from 'sweetalert2';
 import * as Yup from 'yup'
-
 import { Formik } from 'formik';
-const GET_CLIENT = gql`
-  query getOnlyClient($id:ID!){
-    getOnlyClient(id:$id){
-      name
-      company
-      phone
-      surnames
-      email
-    }
-  }
+
+const GET_PRODUCT_ID = gql`
+ query getProductId($id:ID!){
+getProductId(id:$id){
+  id 
+  name
+  stock
+    price
+}
+}
 `;
 
-const UPDATE_CLIENT = gql`
-mutation updateClient($id:ID!,$input:ClientInput){
-updateClient(id:$id,input:$input){
-  
+const UPDATE_PRODUCT = gql`
+mutation updateProduct($id:ID!,$input:ProductInput){
+updateProduct(id:$id,input:$input){
+  id
   name
-  surnames
-  company
-  email
-  phone
+  stock
+  price
 }
 }
 `
 
-const editclient = () => {
+const editProdut = () => {
     // obtener id actual
     const router = useRouter();
 
@@ -40,12 +37,12 @@ const editclient = () => {
 
 
     // traer ese cliente cliente
-    const { data, loading, error } = useQuery(GET_CLIENT, {
+    const { data, loading } = useQuery(GET_PRODUCT_ID, {
         variables: { id }
     });
 
     //actualizar cliente 
-    const [updateClient] = useMutation(UPDATE_CLIENT)
+    const [updateProduct] = useMutation(UPDATE_PRODUCT)
 
 
 
@@ -53,33 +50,29 @@ const editclient = () => {
     // schema de validacion que le pasamos al componente formkit con una props especial
     const schemaValidation = Yup.object({
         name: Yup.string().required('The name is required'),
-        surnames: Yup.string().required('The surname is required'),
-        //primero validamos si existe o no contenido si tiene pasamos a la segunda validacion
-        // esta validacion email valida si es de tipo email con sus nomenclatura si no la pasa envia el error 
-        email: Yup.string().required('email is required').email('email invalid'),
-        // password usamos min que observa si tiene minimo 6 caracteres si tiene 5 da error
-        company: Yup.string().required('company is required'),
-        phone: Yup.string().required('company is required')
+        price: Yup.number().min(1, 'min 1 decimal').required('The prices is required'),
+        stock: Yup.number().min(1, 'min 1 decimal').required('stock is required')
     })
 
 
     if (loading) return null
-    // esta abrazado por un objeto hay que declararo abrazado con llaves 
-    const { getOnlyClient } = data
 
-    const updateClientNow = async values => {
-        const { name, surnames, company, phone, email } = values
+    // esta abrazado por un objeto hay que declararo abrazado con llaves 
+    const { getProductId } = data
+
+
+    const updateProductNow = async values => {
+        const { name, price, stock } = values
 
         try {
-            const { data } = await updateClient({
+            const { data } = await updateProduct({
                 variables: {
                     id,
                     input: {
                         name,
-                        surnames,
-                        company,
-                        phone,
-                        email
+                        price,
+                        stock,
+
                     }
                 }
 
@@ -90,12 +83,12 @@ const editclient = () => {
                 position: "top-end",
                 width: "200",
                 icon: "success",
-                title: " Edit client",
+                title: " Edit product",
                 showConfirmButton: false,
                 timer: 1500
             });
             // redirigimos a index si se actualiza
-            router.push('/')
+            router.push('/Products/ProductPage')
         } catch (error) {
             console.log(error)
         }
@@ -104,8 +97,9 @@ const editclient = () => {
     }
 
     return (
+
         <Layout>
-            <h1>Edit Client</h1>
+            <h1>Edit product</h1>
             <div className='flex justify-center mt-5'>
                 <div className='w-full max-w-lg'>
 
@@ -119,7 +113,7 @@ const editclient = () => {
                         // este prop reinicia el formulario
                         enableReinitialize
                         // y este porp le da los valores de cada uno de las key del objeto solo tenemos que llamarlas como props.value.key
-                        initialValues={getOnlyClient}
+                        initialValues={getProductId}
                         // le pasamos la edicion a travez de una prop
                         // se le uede pasar dos parametros values es lo que el usuario le pasa  de el formulario en este caso
                         //un objeto para editar y cambiar su estado
@@ -127,7 +121,7 @@ const editclient = () => {
                         //no obstante la dejamos 
                         onSubmit={(values, funnc) => {
                             //dentro invocamos una funcion para que actualice el cliente funcion creado por nosotros
-                            updateClientNow(values)
+                            updateProductNow(values)
                         }}
                     >
                         {props => {
@@ -137,13 +131,13 @@ const editclient = () => {
                                     onSubmit={props.handleSubmit}
                                 >
                                     <div className='mb-4'>
-                                        <label className='block text-white text-center  text-sm font-bold mb-2' htmlFor='name'> Name</label>
+                                        <label className='block text-gray-800 text-center  text-sm font-bold mb-2' htmlFor='name'> Name</label>
                                         <input
-                                            className=' shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
+                                            className=' shadow appearance-none text-center  border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                             focus:outline-none focus:shadow-outline '
                                             id='name'
                                             type='text'
-                                            placeholder='name client'
+                                            placeholder='name of product'
                                             // manda el valor del formulario es decir lo conecta con formkit
                                             value={props.values.name}
                                             // si no tiene el onchange no podras escribir en el formulario
@@ -158,88 +152,47 @@ const editclient = () => {
                                         ) : null}
                                     </div>
                                     <div className='mb-4'>
-                                        <label className='block text-white text-center text-sm font-bold mb-2' htmlFor='surnames'> Surname</label>
+                                        <label className='block text-center text-gray-800  text-sm font-bold mb-2' htmlFor='price'> Price</label>
                                         <input
-                                            className=' shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
+                                            className=' shadow appearance-none border text-center  rounded w-full py-2 px-3 text-gray-700 leading-tight 
                             focus:outline-none focus:shadow-outline '
-                                            id='surnames'
-                                            type='text'
-                                            placeholder='Surname client'
+                                            id='price'
+                                            type='number'
+                                            placeholder='Price of product'
                                             // manda el valor del formulario es decir lo conecta con formkit
-                                            value={props.values.surnames}
+                                            value={props.values.price}
                                             // si no tiene el onchange no podras escribir en el formulario
                                             onChange={props.handleChange}
                                             // se usa para validar el formulario si el usuario sale del campo en este caso de email
                                             onBlur={props.handleBlur}
                                         />
-                                        {props.touched.surnames && props.errors.surnames ? (
+                                        {props.touched.price && props.errors.price ? (
                                             <div>
-                                                <p className='mt-2 text-white bg-red-500 text-center rounded'>{props.errors.surnames}</p>
+                                                <p className='mt-2 text-white bg-red-500 text-center rounded'>{props.errors.price}</p>
                                             </div>
                                         ) : null}
                                     </div>  <div className='mb-4'>
-                                        <label className='block text-white text-center  text-sm font-bold mb-2' htmlFor='company'> Company</label>
+                                        <label className='block text-center text-gray-800  text-sm font-bold mb-2' htmlFor='stock'> stock</label>
                                         <input
-                                            className=' shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
+                                            className=' shadow appearance-none text-center border rounded w-full py-2 px-3 text-gray-700 leading-tight 
                             focus:outline-none focus:shadow-outline '
-                                            id='company'
-                                            type='text'
-                                            placeholder='company client'
+                                            id='stock'
+                                            type='number'
+                                            placeholder='stock client'
                                             // manda el valor del formulario es decir lo conecta con formkit
-                                            value={props.values.company}
+                                            value={props.values.stock}
                                             // si no tiene el onchange no podras escribir en el formulario
                                             onChange={props.handleChange}
                                             // se usa para validar el formulario si el usuario sale del campo en este caso de email
                                             onBlur={props.handleBlur}
                                         />
-                                        {props.touched.company && props.errors.company ? (
+                                        {props.touched.stock && props.errors.stock ? (
                                             <div>
-                                                <p className='mt-2 text-white bg-red-500 text-center rounded'>{props.errors.company}</p>
+                                                <p className='mt-2 text-white bg-red-500 text-center rounded'>{props.errors.stock}</p>
                                             </div>
                                         ) : null}
                                     </div>
-                                    <div className='mb-4'>
-                                        <label className='block text-white text-center  text-sm font-bold mb-2' htmlFor='c'> Phone</label>
-                                        <input
-                                            className=' shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
-                            focus:outline-none focus:shadow-outline '
-                                            id='phone'
-                                            type='tel'
-                                            placeholder='phone client'
-                                            // manda el valor del formulario es decir lo conecta con formkit
-                                            value={props.values.phone}
-                                            // si no tiene el onchange no podras escribir en el formulario
-                                            onChange={props.handleChange}
-                                            // se usa para validar el formulario si el usuario sale del campo en este caso de email
-                                            onBlur={props.handleBlur}
-                                        />
-                                        {props.touched.phone && props.errors.phone ? (
-                                            <div>
-                                                <p className='mt-2 text-white bg-red-500 text-center rounded'>{props.errors.phone}</p>
-                                            </div>
-                                        ) : null}
-                                    </div>
-                                    <div className='mb-4'>
-                                        <label className='block text-white text-center text-sm font-bold mb-2' htmlFor='email'> email</label>
-                                        <input
-                                            className=' shadow appearance-none border rounded w-full py-2 px-3 text-gray-700 leading-tight 
-                            focus:outline-none focus:shadow-outline '
-                                            id='email'
-                                            type='text'
-                                            placeholder='email client'
-                                            // manda el valor del formulario es decir lo conecta con formkit
-                                            value={props.values.email}
-                                            // si no tiene el onchange no podras escribir en el formulario
-                                            onChange={props.handleChange}
-                                            // se usa para validar el formulario si el usuario sale del campo en este caso de email
-                                            onBlur={props.handleBlur}
-                                        />
-                                        {props.touched.email && props.errors.email ? (
-                                            <div>
-                                                <p className='mt-2 text-white bg-red-500 text-center rounded'>{props.errors.email}</p>
-                                            </div>
-                                        ) : null}
-                                    </div>
+
                                     <input type="submit"
                                         className=' bg-gray-500 text-white cursor-pointer rounded w-full mt-5 p-2  uppercase font-bold
                             hover:bg-gray-400 hover:text-black  duration-300'
@@ -254,4 +207,4 @@ const editclient = () => {
         </Layout>
     )
 }
-export default editclient
+export default editProdut

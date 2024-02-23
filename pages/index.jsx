@@ -35,7 +35,7 @@ const Index = () => {
   return (
     <Layout>
       <h2 className='text-2xl text-gray-800 font-light' >Clients</h2>
-      <Link href={'/NewClientPage'} >
+      <Link href={'/ClientWeb/NewClientPage'} >
         <p className='cursor-pointer text-sm uppercase font-bold rounded inline-block text-white bg-blue-800 py-2 px-5 mt-5 hover:bg-blue-500 duration-300 '>new client</p>
       </Link>
       <table className='table-auto shadow-md mt-10 w-full w-lg'>

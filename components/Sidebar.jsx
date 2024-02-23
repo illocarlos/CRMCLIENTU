@@ -24,7 +24,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li className={router.pathname === "/OrdersPage" ? "text-blue-300 font-extrabold underline " : ""}>
-                    <Link href={'/OrdersPage'}>
+                    <Link href={'/Orders/OrdersPage'}>
                         <a className='mb-3 block'>
                             Orders
 
@@ -32,7 +32,7 @@ const Sidebar = () => {
                     </Link>
                 </li>
                 <li className={router.pathname === "/ProductPage" ? "text-blue-300 font-extrabold underline" : ""}>
-                    <Link href={'/ProductPage'}>
+                    <Link href={'/Products/ProductPage'}>
                         <a className='mb-3 block'>
                             Products
 
