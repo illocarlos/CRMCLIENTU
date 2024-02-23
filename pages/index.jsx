@@ -3,6 +3,7 @@ import { useQuery, gql } from '@apollo/client'
 import { useRouter } from 'next/router';
 import Link from 'next/link';
 import Client from '../components/Client';
+import Loader from '../components/Loader/Loader';
 // traemos el mutation schema de gql  al frontend 
 const GET_CLIENTS_SELLER = gql`
 query getClientsSeller{
@@ -24,12 +25,12 @@ const Index = () => {
   //loading el tiempo de carga
   //error es el error que se pasa del backend
   const { data, loading, client, error } = useQuery(GET_CLIENTS_SELLER)
-  if (loading) return null
+  if (loading) return <div><Loader /></div>
 
   if (!localStorage.token) {
     client.clearStore()
     router.push('/LogInPage');
-    return <p>Loading...</p>;
+    return <Loader />
   }
 
   return (

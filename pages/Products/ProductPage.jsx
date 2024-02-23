@@ -3,8 +3,7 @@ import Layout from '../../components/Layout.jsx'
 import Link from 'next/link';
 import { useQuery, gql } from '@apollo/client';
 import Product from '../../components/Product.jsx';
-import product from '../../components/Product.jsx';
-
+import Loader from '../../components/Loader/Loader.jsx';
 
 const GET_PRODUCT = gql`
 query getProduct{
@@ -24,7 +23,7 @@ const ProductPage = () => {
 
     const { data, loading, error } = useQuery(GET_PRODUCT)
 
-    if (loading) return null
+    if (loading) return <Loader />
     console.log(data)
 
     return (

@@ -50,8 +50,15 @@ const editProdut = () => {
     // schema de validacion que le pasamos al componente formkit con una props especial
     const schemaValidation = Yup.object({
         name: Yup.string().required('The name is required'),
-        price: Yup.number().min(1, 'min 1 decimal').required('The prices is required'),
-        stock: Yup.number().min(1, 'min 1 decimal').required('stock is required')
+        price: Yup.number()
+            .required('The prices is required')
+            .positive('required number positive ')
+            .min(1, 'min 1 decimal'),
+        stock: Yup.number()
+            .required('stock is required')
+            .positive('required number positive ')
+            .integer('required number integred')
+            .min(1, 'min 1 decimal')
     })
 
 
