@@ -22,7 +22,6 @@ const Header = () => {
 
     if (loading) return <p>Loading...</p>;
     const routerPush = data
-    console.log('------', data)
     // Proteger que no accedamos a data antes de tener resultados
     //nos echa si no tenemos data o el token protegemos asi la ruta
     if (!routerPush || !localStorage.token) {

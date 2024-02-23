@@ -11,6 +11,7 @@ query getClientsSeller{
     name
     surnames
     email
+    company
   }
 }
     `;
@@ -24,7 +25,6 @@ const Index = () => {
   //error es el error que se pasa del backend
   const { data, loading, client, error } = useQuery(GET_CLIENTS_SELLER)
   if (loading) return null
-  console.log('---->', data.getClientsSeller)
 
   if (!localStorage.token) {
     client.clearStore()
@@ -46,7 +46,8 @@ const Index = () => {
             <th className='w-1/5 py-2'>company</th>
             <th className='w-1/5 py-2'>email</th>
             <th className='w-1/5 py-2'>phone</th>
-            <th ></th>
+            <th></th>
+            <th></th>
           </tr>
         </thead>
         <tbody className='bg-white'>

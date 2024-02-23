@@ -5,6 +5,7 @@ import { useFormik } from 'formik'
 import * as Yup from 'yup'
 import { useMutation, gql } from '@apollo/client'
 import { useRouter } from 'next/router'
+import Swal from 'sweetalert2';
 
 const NEW_CLIENT = gql`
 mutation createClient($input:ClientInput){
@@ -88,6 +89,14 @@ const NewClient = () => {
                         }
                     }
 
+                });
+                Swal.fire({
+                    position: "top-end",
+                    width: "200",
+                    icon: "success",
+                    title: "Create client",
+                    showConfirmButton: false,
+                    timer: 1500
                 });
                 router.push('/')
             } catch (error) {
@@ -219,8 +228,8 @@ const NewClient = () => {
                             ) : null}
                         </div>
                         <input type="submit"
-                            className=' bg-gray-500 cursor-pointer rounded w-full mt-5 p-2  uppercase font-bold
-                            hover:bg-gray-400  duration-300'
+                            className='text-white bg-gray-500 cursor-pointer rounded w-full mt-5 p-2  uppercase font-bold
+                            hover:bg-gray-400 hover:text-black  duration-300'
                             value='Register client' />
                     </form>
                     {message ? (

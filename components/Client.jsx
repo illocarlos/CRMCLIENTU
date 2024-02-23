@@ -1,8 +1,9 @@
 import React from 'react'
 import Swal from 'sweetalert2';
 import { useMutation, gql } from '@apollo/client'
-import Deleted from './buttonsComponent/Deleted';
-
+import Deleted from './ButtonsComponent/Deleted';
+import Edit from './ButtonsComponent/Edit';
+import Router from 'next/router';
 
 const DELETED_CLIENT = gql`
 mutation deletedClient($id:ID!){
@@ -16,6 +17,7 @@ query getClientsSeller{
     name
     surnames
     email
+    company
   }
 }
     `;
@@ -45,7 +47,6 @@ const client = ({ client }) => {
 
     // eliminar client
     const deleteThisClient = (id) => {
-
         // paquete de alertas predefinido
         Swal.fire({
             title: "Are you sure?",
@@ -65,6 +66,8 @@ const client = ({ client }) => {
                         }
                     })
                     Swal.fire({
+                        position: "top-end",
+                        width: "200",
                         title: "Deleted!",
                         text: "Your client has been deleted.",
                         icon: "success"
@@ -87,7 +90,13 @@ const client = ({ client }) => {
         console.log(`deletedClient`, id)
     }
 
-
+    const editClient = () => {
+        // con este ROUTER podemos mandar a donde queramos pasandole informacion 
+        Router.push({
+            pathname: "/EditClientPage/[id]",
+            query: { id }
+        })
+    }
     return (
         <tr >
             <td className='border px-4 py-2 text-center'>{name}</td>
@@ -97,13 +106,21 @@ const client = ({ client }) => {
             <td className='border px-4 py-2 text-center'>{phone}</td>
             <td className='mx-2 '>
                 <button
-                    onClick={() => deleteThisClient(id)}
+                    onClick={() => editClient(id)}
                     type='buttton'
                     className=' flex justify-center items-center'>
-                    <Deleted />
-
+                    <Edit />
                 </button>
             </td>
+            <td className='mx-2 '>
+                <button
+                    onClick={() => deleteThisClient(id)}
+                    type='buttton'
+                    className='  ml-5 flex justify-center items-center'>
+                    <Deleted />
+                </button>
+            </td>
+
         </tr>
     )
 }
