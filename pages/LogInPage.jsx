@@ -80,6 +80,7 @@ const LogIn = () => {
         <Layout>
 
             <div className='flex flex-col justify-center'>
+
                 <Logo />
                 <h2 className='text-center text-white text-2xl my-4' >Login</h2>
             </div>
