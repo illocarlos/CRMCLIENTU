@@ -28,7 +28,7 @@ const Index = () => {
   const { data, loading, client, error } = useQuery(GET_CLIENTS_SELLER)
 
 
-  if (loading) return <div><Loader /></div>
+  if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
 
   if (!localStorage.token) {
 
