@@ -28,7 +28,7 @@ const Header = () => {
         router.push('/LogInPage')
     }
     // si tenemos data hacemos otro filtro con el loading para pasarle la data
-    localStorage.setItem('Lid', data.getUser.id)
+    localStorage.setItem('Lid', data.getUser.email)
     // cerramos sesion y borramos token
     const logOut = () => {
         localStorage.removeItem('token');

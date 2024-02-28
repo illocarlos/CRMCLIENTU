@@ -86,7 +86,8 @@ const Product = ({ product }) => {
             <td className='border px-4 py-2 text-center'>{name}</td>
             <td className='border px-4 py-2 text-center'>{price}$</td>
             <td className='border px-4 py-2 text-center'>{stock}</td>
-            {localStorage.Lid === "65deff3463a0bd184697dfc7" && (
+
+            {localStorage.Lid === "carlosalbendiz93@gmail.com" && (
                 <td className='mx-2 '>
                     <button
                         onClick={() => editProduct(id)}
@@ -97,7 +98,7 @@ const Product = ({ product }) => {
                 </td>
             )}
 
-            {localStorage.Lid === "65deff3463a0bd184697dfc7" && (
+            {localStorage.Lid === "carlosalbendiz93@gmail.com" && (
                 <td className='mx-2 '>
                     <button
                         onClick={() => deleteThisProduct(id)}
