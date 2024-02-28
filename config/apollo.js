@@ -6,7 +6,7 @@ import { setContext } from 'apollo-link-context';
 //le pasamos este calor al client de abajo
 // 1*le decimos donde se conecte del backen
 const HttpLink = createHttpLink({
-    uri: 'http://localhost:4000/',
+    uri: 'https://render.com/docs/web-services#port-detection',
 });
 
 
