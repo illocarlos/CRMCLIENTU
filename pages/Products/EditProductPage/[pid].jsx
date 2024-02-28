@@ -28,7 +28,7 @@ updateProduct(id:$id,input:$input){
 }
 `
 
-const editProdut = () => {
+const EditProduct = () => {
     // obtener id actual
     const router = useRouter();
 
@@ -214,4 +214,4 @@ const editProdut = () => {
         </Layout>
     )
 }
-export default editProdut
+export default EditProduct

@@ -31,7 +31,7 @@ updateClient(id:$id,input:$input){
 }
 `
 
-const editclient = () => {
+const EditClient = () => {
     // obtener id actual
     const router = useRouter();
 
@@ -254,4 +254,4 @@ const editclient = () => {
         </Layout>
     )
 }
-export default editclient
+export default EditClient

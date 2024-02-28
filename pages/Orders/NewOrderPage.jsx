@@ -48,7 +48,7 @@ const GET_ORDER = gql`
 }
 `
 
-const newOrder = () => {
+const NewOrder = () => {
     const router = useRouter();
 
     const [message, setMessage] = useState(null);
@@ -153,4 +153,4 @@ const newOrder = () => {
         </Layout >
     )
 }
-export default newOrder
+export default NewOrder

@@ -15,7 +15,7 @@ query getClientsSeller{
 }
     `;
 
-const assignClient = () => {
+const AssingClient = () => {
     // creamos el array de productos como sera reactivo usamos useState
     //ira modificando a tiempo real si hay cambios product  es el array u setproduct es el mismo array pero modificado
     const [client, setClient] = useState([])
@@ -62,4 +62,4 @@ const assignClient = () => {
         </>
     )
 }
-export default assignClient
+export default AssingClient

@@ -23,7 +23,7 @@ query getClientsSeller{
 }
     `;
 
-const client = ({ client }) => {
+const Client = ({ client }) => {
 
 
     const [deletedClient] = useMutation(DELETED_CLIENT, {
@@ -124,4 +124,4 @@ const client = ({ client }) => {
         </tr>
     )
 }
-export default client
+export default Client
