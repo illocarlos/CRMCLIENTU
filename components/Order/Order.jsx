@@ -49,12 +49,13 @@ const Order = ({ order }) => {
         }
     })
 
-    // console.log(pedido)
+
 
     const [stateOrder, setStateOrder] = useState(state);
     const [classTipe, setClassTipe] = useState('');
 
     useEffect(() => {
+
         if (stateOrder) {
             setStateOrder(stateOrder)
         }

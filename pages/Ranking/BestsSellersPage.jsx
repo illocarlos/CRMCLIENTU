@@ -44,10 +44,9 @@ const BestSellers = () => {
             total: seller.total
         }
     })
-    console.log('eeeee graficccc', sellerGrafic[0])
     return (
         <Layout>
-            <h2 >desde Nosotros</h2>
+            <h2 className='text-center uppercase font-bold' >top sellers</h2>
             <ResponsiveContainer className='mt-10 max-h-screen' height={700} width="100%" >
                 <BarChart
                     width={500}
@@ -61,7 +60,7 @@ const BestSellers = () => {
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis />
+                    <YAxis tickFormatter={(value) => `$${value}`} />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="total" fill="#3182CE" activeBar={<Rectangle fill="pink" stroke="blue" />} />

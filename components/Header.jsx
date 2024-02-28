@@ -28,22 +28,22 @@ const Header = () => {
         router.push('/LogInPage')
     }
     // si tenemos data hacemos otro filtro con el loading para pasarle la data
-    console.log(data)
-
+    localStorage.setItem('Lid', data.getUser.id)
     // cerramos sesion y borramos token
     const logOut = () => {
         localStorage.removeItem('token');
+        localStorage.removeItem('Lid');
         // esto limpia el objeto que recibe  
         client.clearStore();
         router.push('/LogInPage');
     }
 
     return (
-        <div className='sm:flex     sm:justify-between mb-4 '>
-            <p className='mr-2 mb-5 lg:mb-0 text-sm text-black'>{data?.getUser.name} {data?.getUser.surnames}</p>
+        <div className='flex  justify-between mb-4 '>
+            <p className='mr-2 mb-5 lg:mb-0 text-sm text-black'><span className='uppercase mr-2'>Welcome</span>{data?.getUser.name} {data?.getUser.surnames}</p>
             <button
                 onClick={() => logOut()}
-                type='button' className='bg-gray-600 w-full uppercase sm:w-auto px-2 py-1 text-xs rounded text-white'>log out</button>
+                type='button' className='bg-gray-600  uppercase px-2  text-xs rounded text-white md:px-4 md:py-2'>log out</button>
         </div>
     )
 }

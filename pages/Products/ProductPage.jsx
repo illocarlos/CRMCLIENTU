@@ -23,7 +23,7 @@ const GET_USER = gql`
 query getUser{
 getUser{
 
-  surnames
+  id
 }
 }
 
@@ -37,13 +37,13 @@ const ProductPage = () => {
 
 
     if (loading || productLoading) return <Loader />
-    console.log(localStorage)
+
 
     return (
         <Layout>
-            <h2 className='text-2xl text-gray-800 font-light' >Products</h2>
+            <h2 className='text-2xl text-gray-800 font-bold text-center uppercase' >Products List</h2>
 
-            {productUser?.getUser.surnames === "Páez" && (
+            {localStorage.Lid === "65deff3463a0bd184697dfc7" && (
                 <Link href='/Products/NewProductPage'>
                     <p className='cursor-pointer text-sm uppercase font-bold rounded inline-block text-white bg-blue-800 py-2 px-5 mt-5 hover:bg-blue-500 duration-300'>new product</p>
                 </Link>
@@ -62,6 +62,7 @@ const ProductPage = () => {
                     {productData.getProduct.map(product => (
                         // le pasamos las propr al componente client 
                         <   Product
+                            user={productUser.getUser.surnames}
                             key={product.id}
                             product={product}
                         />

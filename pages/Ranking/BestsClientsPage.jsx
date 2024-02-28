@@ -45,6 +45,8 @@ const BestClients = () => {
     })
     return (
         <Layout>
+            <h2 className='text-center uppercase font-bold' >top client</h2>
+
             <ResponsiveContainer className='mt-10  max-h-screen' height={700} width="100%" >
                 <BarChart
                     width={500}
@@ -58,7 +60,7 @@ const BestClients = () => {
                 >
                     <CartesianGrid strokeDasharray="3 3" />
                     <XAxis dataKey="name" />
-                    <YAxis />
+                    <YAxis tickFormatter={(value) => `$${value}`} />
                     <Tooltip />
                     <Legend />
                     <Bar dataKey="total" fill="#3182CE" activeBar={<Rectangle fill="pink" stroke="blue" />} />

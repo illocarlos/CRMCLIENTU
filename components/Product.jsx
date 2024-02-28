@@ -86,22 +86,28 @@ const Product = ({ product }) => {
             <td className='border px-4 py-2 text-center'>{name}</td>
             <td className='border px-4 py-2 text-center'>{price}$</td>
             <td className='border px-4 py-2 text-center'>{stock}</td>
-            <td className='mx-2 '>
-                <button
-                    onClick={() => editProduct(id)}
-                    type='button'
-                    className=' flex justify-center items-center'>
-                    <Edit />
-                </button>
-            </td>
-            <td className='mx-2 '>
-                <button
-                    onClick={() => deleteThisProduct(id)}
-                    type='button'
-                    className='  ml-5 flex justify-center items-center'>
-                    <Deleted />
-                </button>
-            </td>
+            {localStorage.Lid === "65deff3463a0bd184697dfc7" && (
+                <td className='mx-2 '>
+                    <button
+                        onClick={() => editProduct(id)}
+                        type='button'
+                        className=' flex justify-center items-center'>
+                        <Edit />
+                    </button>
+                </td>
+            )}
+
+            {localStorage.Lid === "65deff3463a0bd184697dfc7" && (
+                <td className='mx-2 '>
+                    <button
+                        onClick={() => deleteThisProduct(id)}
+                        type='button'
+                        className='  ml-5 flex justify-center items-center'>
+                        <Deleted />
+                    </button>
+                </td>
+            )}
+
         </tr>
     );
 };

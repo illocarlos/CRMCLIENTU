@@ -31,6 +31,7 @@ const Index = () => {
   if (loading) return <div><Loader /></div>
 
   if (!localStorage.token) {
+
     client.clearStore()
     router.push('/LogInPage');
     return <Loader />
@@ -38,7 +39,7 @@ const Index = () => {
 
   return (
     <Layout>
-      <h2 className='text-2xl text-gray-800 font-light' >Clients</h2>
+      <h2 className='text-2xl text-gray-800 font-bold text-center uppercase' >Clients list</h2>
       <Link href={'/ClientWeb/NewClientPage'} >
         <p className='cursor-pointer text-sm uppercase font-bold rounded inline-block text-white bg-blue-800 py-2 px-5 mt-5 hover:bg-blue-500 duration-300 w-full lg:w-auto text-center '>new client</p>
       </Link>

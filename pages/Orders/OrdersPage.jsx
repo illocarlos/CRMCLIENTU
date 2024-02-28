@@ -40,7 +40,7 @@ const Orders = () => {
 
   return (
     <Layout>
-      <h2 className='text-2xl text-gray-800 font-light' >Orders</h2>
+      <h2 className='text-2xl text-gray-800 font-bold uppercase text-center' >Orders list</h2>
       <Link href={'/Orders/NewOrderPage'} >
         <p className='cursor-pointer text-sm uppercase font-bold rounded inline-block text-white bg-blue-800 py-2 px-5 mt-5 hover:bg-blue-500 duration-300 '>new order</p>
       </Link>
