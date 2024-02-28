@@ -4,6 +4,7 @@ import { BarChart, Bar, Rectangle, XAxis, YAxis, CartesianGrid, Tooltip, Legend,
 
 
 import { useQuery, gql } from '@apollo/client';
+import Loader from '../../components/Loader/Loader';
 
 const BEST_CLIENTS = gql`
 query getTopClients{
@@ -32,7 +33,7 @@ const BestClients = () => {
         }
     }, [startPolling, stopPolling])
 
-    if (loading) return
+    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
     const { getTopClients } = data
     const clientGrafic = []
 

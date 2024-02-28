@@ -3,6 +3,7 @@ import Layout from '../../components/Layout'
 import Link from 'next/link'
 import Order from '../../components/Order/Order.jsx';
 import { gql, useQuery } from '@apollo/client';
+import Loader from '../../components/Loader/Loader.jsx';
 
 const GET_ORDER = gql`
 query getOrdersPerSeller{
@@ -34,7 +35,7 @@ const Orders = () => {
 
   const { data, loading, error } = useQuery(GET_ORDER);
 
-  if (loading) return 'loading...';
+  if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
 
   const { getOrdersPerSeller } = data;
 

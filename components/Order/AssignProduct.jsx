@@ -2,6 +2,7 @@ import React, { useEffect, useState, useContext } from 'react';
 import Select from 'react-select';
 import { gql, useQuery } from '@apollo/client';
 import OrderContext from '../../context/OrderContext';
+import Loader from '../Loader/Loader';
 
 
 const GET_PRODUCT = gql`
@@ -40,7 +41,7 @@ const AssignProduct = () => {
     }
 
 
-    if (loading) return null;
+    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
     const { getProduct } = data;
 
     return (

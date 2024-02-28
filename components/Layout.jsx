@@ -4,6 +4,7 @@ import Sidebar from '../components/Sidebar';
 import { useRouter } from 'next/router'
 import Header from './Header';
 import { gql, useQuery } from '@apollo/client'
+import Loader from './Loader/Loader';
 
 const GET_USER = gql`
 query getUser{
@@ -26,7 +27,7 @@ const Layout = ({ children }) => {
     const router = useRouter()
     const { data, loading } = useQuery(GET_USER);
 
-    if (loading) return null
+    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
     const user = data
 
 

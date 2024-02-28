@@ -1,6 +1,7 @@
 import React from 'react'
 import { gql, useQuery } from '@apollo/client'
 import { useRouter } from 'next/router';
+import Loader from './Loader/Loader';
 
 const GET_USER = gql`
 query getUser{
@@ -20,7 +21,7 @@ const Header = () => {
     // query de apollo
     const { data, loading, client } = useQuery(GET_USER);
 
-    if (loading) return <p>Loading...</p>;
+    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
 
     // Proteger que no accedamos a data antes de tener resultados
     //nos echa si no tenemos data o el token protegemos asi la ruta

@@ -2,6 +2,7 @@ import React, { useState, useEffect, useContext } from 'react'
 import { gql, useQuery } from '@apollo/client'
 import Select from 'react-select'
 import OrderContext from '../../context/OrderContext'
+import Loader from '../Loader/Loader';
 
 const GET_CLIENTS_SELLER = gql`
 query getClientsSeller{
@@ -37,7 +38,7 @@ const AssingClient = () => {
         setClient(clients)
     }
     //resultado de consulta
-    if (loading) return null
+    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
     const { getClientsSeller } = data
     return (
         <>

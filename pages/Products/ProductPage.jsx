@@ -36,7 +36,7 @@ const ProductPage = () => {
     const { data: productUser, loading } = useQuery(GET_USER);
 
 
-    if (loading || productLoading) return <Loader />
+    if (loading || productLoading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
 
 
     return (
