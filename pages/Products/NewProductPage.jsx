@@ -89,7 +89,7 @@ const NewProduct = () => {
                     position: "top-end",
                     width: "200",
                     icon: "success",
-                    title: "Create client",
+                    title: "Create product",
                     showConfirmButton: false,
                     timer: 1500
                 });

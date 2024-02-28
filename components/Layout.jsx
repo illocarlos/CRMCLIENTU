@@ -27,7 +27,7 @@ const Layout = ({ children }) => {
     const router = useRouter()
     const { data, loading } = useQuery(GET_USER);
 
-    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
+    if (loading) return <div className='w-sceen h-screen flex justify-center items-center content-center '><Loader /></div>
     const user = data
 
 
@@ -54,7 +54,7 @@ const Layout = ({ children }) => {
                         <Sidebar />
                         <main
                             user={user}
-                            className=' sm:w-2/3 lg:w-9/12 sm:min-h-screen p-5 '>
+                            className=' sm:w-2/3 lg:w-9/12  sm:min-h-screen p-5 '>
                             <Header />
                             {children}
                         </main>

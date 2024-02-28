@@ -21,7 +21,7 @@ const Header = () => {
     // query de apollo
     const { data, loading, client } = useQuery(GET_USER);
 
-    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
+    if (loading) return <div className='w-sceen h-screen flex justify-center items-center content-center'><Loader /></div>
 
     // Proteger que no accedamos a data antes de tener resultados
     //nos echa si no tenemos data o el token protegemos asi la ruta
