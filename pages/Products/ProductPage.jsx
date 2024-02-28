@@ -13,25 +13,41 @@ name
 stock
 price
 create
+
 }
 }
 
 `;
 
+const GET_USER = gql`
+query getUser{
+getUser{
+
+  surnames
+}
+}
+
+
+`;
+
 
 const ProductPage = () => {
+    const { data: productData, loading: productLoading } = useQuery(GET_PRODUCT);
+    const { data: productUser, loading } = useQuery(GET_USER);
 
-    const { data, loading, error } = useQuery(GET_PRODUCT)
 
-    if (loading) return <Loader />
-    console.log(data)
+    if (loading || productLoading) return <Loader />
+    console.log(localStorage)
 
     return (
         <Layout>
             <h2 className='text-2xl text-gray-800 font-light' >Products</h2>
-            <Link href={'/Products/NewProductPage'} >
-                <p className='cursor-pointer text-sm uppercase font-bold rounded inline-block text-white bg-blue-800 py-2 px-5 mt-5 hover:bg-blue-500 duration-300 '>new product</p>
-            </Link>
+
+            {productUser?.getUser.surnames === "Páez" && (
+                <Link href='/Products/NewProductPage'>
+                    <p className='cursor-pointer text-sm uppercase font-bold rounded inline-block text-white bg-blue-800 py-2 px-5 mt-5 hover:bg-blue-500 duration-300'>new product</p>
+                </Link>
+            )}
             <table className='table-auto shadow-md mt-10 w-full w-lg'>
                 <thead className='bg-gray-800'>
                     <tr className='text-white'>
@@ -43,7 +59,7 @@ const ProductPage = () => {
                     </tr>
                 </thead>
                 <tbody className='bg-white'>
-                    {data.getProduct.map(product => (
+                    {productData.getProduct.map(product => (
                         // le pasamos las propr al componente client 
                         <   Product
                             key={product.id}

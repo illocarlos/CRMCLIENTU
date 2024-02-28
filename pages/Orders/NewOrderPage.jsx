@@ -34,7 +34,13 @@ const GET_ORDER = gql`
 
     }
     total
-    client
+    client{
+      id
+      name
+      surnames 
+      email
+      phone
+    }
     state
     create
     seller
@@ -54,19 +60,17 @@ const newOrder = () => {
     // const { } = orderContext
 
     // Mutation para crear un nuevo pedido
-    const [createOrder] = useMutation(NEW_ORDER)
-    //     ,
-    //     {
-    //     update(cache, { data: { createOrder } }) {
-    //         const { getOrdersPerSeller } = cache.readQuery({ query: GET_ORDER });
-    //         cache.writeQuery({
-    //             query: GET_ORDER,
-    //             data: {
-    //                 getOrdersPerSeller: [...getOrdersPerSeller, createOrder]
-    //             }
-    //         })
-    //     }
-    // });
+    const [createOrder] = useMutation(NEW_ORDER, {
+        update(cache, { data: { createOrder } }) {
+            const { getOrdersPerSeller } = cache.readQuery({ query: GET_ORDER });
+            cache.writeQuery({
+                query: GET_ORDER,
+                data: {
+                    getOrdersPerSeller: [...getOrdersPerSeller, createOrder]
+                }
+            })
+        }
+    });
 
 
     const ValidateOrder = () => {

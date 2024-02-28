@@ -3,12 +3,13 @@ import Link from 'next/link'
 import { useRouter } from 'next/router'
 import Logo from './Logo'
 
-const Sidebar = () => {
+const Sidebar = ({ user }) => {
+    console.log('desde', user)
     // lo usamos para hacer clases dinamicas ya que router.pathname te da el lugar en el que estas 
     const router = useRouter()
 
     return (
-        <aside className='bg-gray-800 sm:w-1/3 lg:w-3/12 sm:min-h-screen p-5 '>
+        <aside className='bg-gray-800 sm:w-1/3 lg:w-1/5 sm:min-h-screen p-5 '>
             <div>
                 <Logo />
                 <p className='text-white text-center font-extrabold text-xl my-6'>
@@ -36,6 +37,27 @@ const Sidebar = () => {
                         <a className='mb-3 block'>
                             Products
 
+                        </a>
+                    </Link>
+                </li>
+            </nav>
+            <div>
+                <p className='text-white text-center uppercase font-extrabold text-xl my-6'>
+                    Ranking
+                </p>
+            </div>
+            <nav className='mt-5 text-white  list-none'>
+                <li className={router.pathname === "/Ranking/BestsSellersPage" ? "text-blue-300 font-extrabold underline" : ""}>
+                    <Link href={'/Ranking/BestsSellersPage'}>
+                        <a className='mb-3 block'>
+                            Bests sellers
+                        </a>
+                    </Link>
+                </li>
+                <li className={router.pathname === "/Ranking/BestsClients/Page" ? "text-blue-300 font-extrabold underline" : ""}>
+                    <Link href={'/Ranking/BestsClientsPage'}>
+                        <a className='mb-3 block'>
+                            Bests Clients
                         </a>
                     </Link>
                 </li>

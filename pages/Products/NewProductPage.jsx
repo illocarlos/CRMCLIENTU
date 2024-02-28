@@ -111,7 +111,7 @@ const NewProduct = () => {
         <Layout>
 
             <h2 className='text-2xl text-center text-gray-800 font-light'>
-                new client
+                New product
             </h2>
 
             <div className='flex justify-center mt-5'>
@@ -186,7 +186,7 @@ const NewProduct = () => {
                         <input type="submit"
                             className='text-white bg-gray-500 cursor-pointer rounded w-full mt-5 p-2  uppercase font-bold
                             hover:bg-gray-400 hover:text-black  duration-300'
-                            value='Register client' />
+                            value='Register product' />
                     </form>
                     {message ? (
                         <div className='bg-red-400 rounded-md text-white py-3 w-full my-3 text-center max-w-sm mx-auto'>

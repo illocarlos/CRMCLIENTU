@@ -28,7 +28,7 @@ const client = new ApolloClient({
     connectToDevTools: true,
     cache: new InMemoryCache(),
     // 1* y aqui conectamos los dos de arriba le decimos donde se conecte y le agregamos un header nuevo
-    link: authLink.concat(HttpLink)
+    link: authLink.concat(HttpLink),
 });
 
 export default client;

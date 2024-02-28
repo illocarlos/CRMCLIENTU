@@ -3,6 +3,19 @@ import Head from 'next/head';
 import Sidebar from '../components/Sidebar';
 import { useRouter } from 'next/router'
 import Header from './Header';
+import { gql, useQuery } from '@apollo/client'
+
+const GET_USER = gql`
+query getUser{
+getUser{
+  id
+  email
+  name
+  surnames
+  employed
+}
+}
+`;
 
 // usando children donde llamemos Layout vamos a recoger lo que este dentro de Layout
 // y le pasamos la infromacion si en una page dentro de la llamada del componente de
@@ -11,6 +24,11 @@ import Header from './Header';
 
 const Layout = ({ children }) => {
     const router = useRouter()
+    const { data, loading } = useQuery(GET_USER);
+
+    if (loading) return null
+    const user = data
+
 
 
     return (
@@ -31,9 +49,12 @@ const Layout = ({ children }) => {
 
             ) : (
                 <div className='bg-gray-200 min-h-screen'>
-                    <div className='flex min-h-screen'>
-                        <Sidebar />
-                        <main className=' sm:w-2/3 lg:w-9/12 sm:min-h-screen p-5 '>
+                    <div className=' sm:flex min-h-screen'>
+                        <Sidebar
+                            user={user} />
+                        <main
+                            user={user}
+                            className=' sm:w-2/3 lg:w-9/12 sm:min-h-screen p-5 '>
                             <Header />
                             {children}
                         </main>

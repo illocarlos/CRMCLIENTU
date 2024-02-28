@@ -18,6 +18,7 @@ query getClientsSeller{
     surnames
     email
     company
+    phone
   }
 }
     `;

@@ -21,14 +21,14 @@ const Header = () => {
     const { data, loading, client } = useQuery(GET_USER);
 
     if (loading) return <p>Loading...</p>;
-    const routerPush = data
+
     // Proteger que no accedamos a data antes de tener resultados
     //nos echa si no tenemos data o el token protegemos asi la ruta
-    if (!routerPush || !localStorage.token) {
+    if (!data || !localStorage.token) {
         router.push('/LogInPage')
     }
     // si tenemos data hacemos otro filtro con el loading para pasarle la data
-
+    console.log(data)
 
     // cerramos sesion y borramos token
     const logOut = () => {
@@ -39,8 +39,8 @@ const Header = () => {
     }
 
     return (
-        <div className='flex justify-between mb-4 '>
-            <p className='mr-2 text-sm text-black'>{data.getUser.name} {data.getUser.surnames}</p>
+        <div className='sm:flex     sm:justify-between mb-4 '>
+            <p className='mr-2 mb-5 lg:mb-0 text-sm text-black'>{data?.getUser.name} {data?.getUser.surnames}</p>
             <button
                 onClick={() => logOut()}
                 type='button' className='bg-gray-600 w-full uppercase sm:w-auto px-2 py-1 text-xs rounded text-white'>log out</button>
