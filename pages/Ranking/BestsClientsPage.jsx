@@ -33,7 +33,7 @@ const BestClients = () => {
         }
     }, [startPolling, stopPolling])
 
-    if (loading) return <div className='w-sceen h-screen flex justify-center'><Loader /></div>
+    if (loading) return <div className='w-sceen h-screen flex justify-center items-center content-center'><Loader /></div>
     const { getTopClients } = data
     const clientGrafic = []
 
