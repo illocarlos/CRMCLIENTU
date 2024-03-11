@@ -4,9 +4,9 @@ import { setContext } from 'apollo-link-context';
 
 //configuracion de conexion al backend
 //le pasamos este calor al client de abajo
-// 1*le decimos donde se conecte del backend
+// 1*le decimos donde se conecte del backen
 const HttpLink = createHttpLink({
-    uri: `${process.env.BACKEND_URL}`,
+    uri: 'https://crmgraphqlserver.onrender.com',
 });
 
 
